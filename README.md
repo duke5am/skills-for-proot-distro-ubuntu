@@ -15,13 +15,13 @@ Reusable [DeepSeek Harness](https://github.com/deepseek-ai/dsh) skills for the *
 One line, via `git clone`:
 
 ```bash
-git clone --depth 1 https://github.com/duke5am/skills-for-proot-distro-ubuntu.git /tmp/dsh-skills && cp -r /tmp/dsh-skills/{package-installation,python-usage,shell-usage,writing-skills} ~/.dsh/skills/
+mkdir -p ~/.dsh/skills && git clone --depth 1 https://github.com/duke5am/skills-for-proot-distro-ubuntu.git /tmp/dsh-skills && cp -r /tmp/dsh-skills/{package-installation,python-usage,shell-usage,writing-skills} ~/.dsh/skills/
 ```
 
 Or via a `curl` tarball (no git needed):
 
 ```bash
-curl -L https://github.com/duke5am/skills-for-proot-distro-ubuntu/archive/refs/heads/main.tar.gz -o /tmp/dsh-skills.tar.gz && tar xzf /tmp/dsh-skills.tar.gz -C /tmp && cp -r /tmp/skills-for-proot-distro-ubuntu-main/{package-installation,python-usage,shell-usage,writing-skills} ~/.dsh/skills/
+mkdir -p ~/.dsh/skills && curl -L https://github.com/duke5am/skills-for-proot-distro-ubuntu/archive/refs/heads/main.tar.gz -o /tmp/dsh-skills.tar.gz && tar xzf /tmp/dsh-skills.tar.gz -C /tmp && cp -r /tmp/skills-for-proot-distro-ubuntu-main/{package-installation,python-usage,shell-usage,writing-skills} ~/.dsh/skills/
 ```
 
 (Adjust `~/.dsh` to wherever your harness `DSH_HOME` points — in this setup it's `/root/.dsh`.)
