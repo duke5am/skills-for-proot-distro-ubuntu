@@ -15,13 +15,13 @@ Reusable [DeepSeek Harness](https://github.com/deepseek-ai/dsh) skills for the *
 One line, via `git clone`:
 
 ```bash
-mkdir -p ~/.dsh/skills && git clone --depth 1 https://github.com/duke5am/skills-for-proot-distro-ubuntu.git /tmp/dsh-skills && cp -r /tmp/dsh-skills/{package-installation,python-usage,shell-usage,writing-skills} ~/.dsh/skills/
+mkdir -p ~/.dsh/skills && git clone --depth 1 https://github.com/duke5am/skills-for-proot-distro-ubuntu.git /tmp/dsh-skills && cp -r /tmp/dsh-skills/{browser-usage,package-installation,python-usage,shell-usage,writing-skills} ~/.dsh/skills/
 ```
 
 Or via a `curl` tarball (no git needed):
 
 ```bash
-mkdir -p ~/.dsh/skills && curl -L https://github.com/duke5am/skills-for-proot-distro-ubuntu/archive/refs/heads/main.tar.gz -o /tmp/dsh-skills.tar.gz && tar xzf /tmp/dsh-skills.tar.gz -C /tmp && cp -r /tmp/skills-for-proot-distro-ubuntu-main/{package-installation,python-usage,shell-usage,writing-skills} ~/.dsh/skills/
+mkdir -p ~/.dsh/skills && curl -L https://github.com/duke5am/skills-for-proot-distro-ubuntu/archive/refs/heads/main.tar.gz -o /tmp/dsh-skills.tar.gz && tar xzf /tmp/dsh-skills.tar.gz -C /tmp && cp -r /tmp/skills-for-proot-distro-ubuntu-main/{browser-usage,package-installation,python-usage,shell-usage,writing-skills} ~/.dsh/skills/
 ```
 
 (Adjust `~/.dsh` to wherever your harness `DSH_HOME` points — in this setup it's `/root/.dsh`.)
@@ -30,12 +30,23 @@ mkdir -p ~/.dsh/skills && curl -L https://github.com/duke5am/skills-for-proot-di
 
 | Skill | What it covers |
 |---|---|
+| `browser-usage` | Drive a headless Chromium browser (Playwright) to load pages, extract rendered text/HTML/markdown, click/fill forms, capture screenshots/PDFs, and read images via the DeepSeek vision MCP. |
 | `package-installation` | Install Python libs via **apt** (PEP 668 blocks pip), find package names, background big installs, recover half-installed packages. |
 | `python-usage` | Run Python correctly here — write `.py` files not `-c`, file logging, no `tail` piping, background + monitor, numpy/OpenBLAS single-thread env vars. |
 | `shell-usage` | Shell gotchas — the pipe-hang, writing files when the `write` tool EPERMs, heredoc delimiter collisions, background jobs, diagnostics. |
 | `writing-skills` | Author/validate/sanity-check skills: `SKILL.md` location, frontmatter format, naming rules, FUSE/heredoc pitfalls, verification checklist. |
 
 ## Usage examples
+
+### `browser-usage` — fetch a rendered page / read a screenshot
+
+```bash
+# fetch a JS-rendered page as markdown
+/root/browser-tool/venv/bin/python /root/browser-tool/browse.py fetch --url https://example.com --mode markdown
+
+# screenshot one element at 2x, then read it with the vision MCP
+/root/browser-tool/venv/bin/python /root/browser-tool/browse.py screenshot /tmp/shot.png --url https://example.com --selector "#main" --scale 2
+```
 
 ### `package-installation` — install a Python library the right way
 
@@ -85,13 +96,14 @@ print('valid' if (nm and ds and re.fullmatch(r'[a-z0-9]+(?:-[a-z0-9]+)*', nm.gro
 
 ## Installing on a new phone
 
-1. Run the one-line install above (or clone the repo and copy the four folders).
+1. Run the one-line install above (or clone the repo and copy the five folders).
 2. Restart/refresh the harness session so the skill catalog rescans.
-3. Verify with the `writing-skills` checklist (or read the session's available-skills list and confirm the four names appear).
+3. Verify with the `writing-skills` checklist (or read the session's available-skills list and confirm the five names appear).
 
 ## Notes
 
 - These skills are specific to Ubuntu-on-PRoot-on-Android. On a normal Linux box (or a venv-based setup), the pip/apt guidance differs — adjust accordingly.
+- `browser-usage` assumes the `/root/browser-tool/` stack (Playwright venv + `browse.py` + vision MCP) is installed; it is part of this environment, not the phone's stock Ubuntu.
 - `writing-skills` documents how the loader validates skills, so if a copied skill doesn't show up, that's the one to consult first.
 
 ## License
